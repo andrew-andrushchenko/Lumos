@@ -8,7 +8,7 @@ Android part of the Lumos LED stripe project, a unique and beautiful DIY Bluetho
 * The saturation and value selection from the dedicated color panel is laggy for now. To be fixed in future versions.
 
 ## Special thanks
-[Abhilash](https://github.com/V-Abhilash-1999) for the idea of color picker implementation in Jetpack Compose.
+[Abhilash](https://github.com/V-Abhilash-1999) for the idea of the color picker implementation in Jetpack Compose.
 
 [Alex Samokhvalov](https://lottiefiles.com/alex_motion) for the disabled [Bluetooth](https://lottiefiles.com/animations/professional-icon-animation-pYejkhGHZu) state animation.<br/>
 [Hamza Er](https://lottiefiles.com/xwlv6bikbz) for the [empty pairing list](https://lottiefiles.com/animations/connect-icon-W2s7wnF5Sw) animation.<br/>
