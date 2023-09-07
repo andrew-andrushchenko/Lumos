@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="ic_launcher_background">#303030</color>
+
     <color name="preset_orange">#FFEBA15C</color>
     <color name="preset_red">#FFEB5C5C</color>
     <color name="preset_blue">#FF5C62EB</color>
