@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.andrii_a.lumos.ui.devices.devicesRoute
 import com.google.accompanist.systemuicontroller.SystemUiController
 
 @Composable
@@ -17,6 +18,6 @@ fun MainNavigationHost(
         startDestination = Screen.Devices.route,
         modifier = modifier
     ) {
-
+        devicesRoute(navHostController, systemUiController)
     }
 }

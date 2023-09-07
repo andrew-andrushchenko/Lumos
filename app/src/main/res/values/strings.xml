@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Lumos</string>
+
+    <!-- Devices Screen -->
+    <string name="available_devices">Available devices</string>
+    <string name="turn_on_bluetooth">Turn on bluetooth</string>
+    <string name="empty_paired_devices_list_banner_text">Let\'s connect something together!</string>
+    <string name="pair_new_device">Pair new device</string>
+    <string name="device_unnamed">(NO NAME)</string>
+    <string name="hc_06" translatable="false">hc-06</string>
+    <string name="dialog_attention_title">Attention!</string>
+    <string name="dialog_attention_text_formatted">Seems like %s is not a device that can control your stripe. Are you sure want to continue?</string>
+    <string name="cancel">Cancel</string>
+    <string name="connect">Connect</string>
 </resources>
