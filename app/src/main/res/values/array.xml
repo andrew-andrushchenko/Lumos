@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="control_panel_preset_colors">
+        <item>@color/preset_orange</item>
+        <item>@color/preset_red</item>
+        <item>@color/preset_blue</item>
+        <item>@color/preset_green</item>
+        <item>@color/preset_yellow</item>
+        <item>@color/preset_purple</item>
+    </array>
+</resources>

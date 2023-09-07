@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Lumos</string>
 
+    <!-- Common -->
+    <string name="cancel">Cancel</string>
+
     <!-- Devices Screen -->
     <string name="available_devices">Available devices</string>
     <string name="turn_on_bluetooth">Turn on bluetooth</string>
@@ -10,6 +13,16 @@
     <string name="hc_06" translatable="false">hc-06</string>
     <string name="dialog_attention_title">Attention!</string>
     <string name="dialog_attention_text_formatted">Seems like %s is not a device that can control your stripe. Are you sure want to continue?</string>
-    <string name="cancel">Cancel</string>
     <string name="connect">Connect</string>
+
+    <!-- Stripe Control Screen -->
+    <string name="connecting_title">Connecting…</string>
+    <string name="stripe_controls_title">Stripe controls</string>
+    <string name="disconnect_from_device">Disconnect from device</string>
+    <string name="connection_state_banner_text">Connecting to your LED stripe. Please wait.</string>
+    <string name="brightness">Brightness:</string>
+    <string name="brightness_level_formatted" translatable="false">%d%%</string>
+    <string name="pick_a_color">Pick a color:</string>
+    <string name="preset_colors">Preset colors:</string>
+    <string name="generate_random_hue">Generate random hue</string>
 </resources>
