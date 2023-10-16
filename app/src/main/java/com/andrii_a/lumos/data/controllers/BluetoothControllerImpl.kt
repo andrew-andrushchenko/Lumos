@@ -1,6 +1,5 @@
 package com.andrii_a.lumos.data.controllers
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -8,7 +7,6 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.util.Log
 import com.andrii_a.lumos.data.broadcast.BluetoothAdapterStateReceiver
 import com.andrii_a.lumos.data.broadcast.BluetoothStateReceiver
@@ -16,6 +14,8 @@ import com.andrii_a.lumos.data.broadcast.DeviceFoundReceiver
 import com.andrii_a.lumos.data.mappers.toBluetoothDeviceDomain
 import com.andrii_a.lumos.data.mappers.toBluetoothMessage
 import com.andrii_a.lumos.data.mappers.toByteArray
+import com.andrii_a.lumos.data.util.hasBluetoothConnectPermission
+import com.andrii_a.lumos.data.util.hasBluetoothScanPermission
 import com.andrii_a.lumos.domain.controllers.BluetoothController
 import com.andrii_a.lumos.domain.controllers.ConnectionResult
 import com.andrii_a.lumos.domain.exceptions.TransferFailedException
@@ -127,7 +127,7 @@ class BluetoothControllerImpl(
     }
 
     override fun startDiscovery() {
-        if (!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
+        if (!context.hasBluetoothScanPermission()) {
             return
         }
 
@@ -143,7 +143,7 @@ class BluetoothControllerImpl(
     }
 
     override fun stopDiscovery() {
-        if (!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
+        if (!context.hasBluetoothScanPermission()) {
             return
         }
 
@@ -153,7 +153,7 @@ class BluetoothControllerImpl(
 
     override fun connectToDevice(device: BluetoothDeviceDomain): Flow<ConnectionResult> {
         return flow {
-            if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
+            if (!context.hasBluetoothConnectPermission()) {
                 throw SecurityException("No BLUETOOTH_CONNECT permission")
             }
 
@@ -188,7 +188,7 @@ class BluetoothControllerImpl(
     }
 
     override suspend fun trySendMessage(message: String): BluetoothMessage? {
-        if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
+        if (!context.hasBluetoothConnectPermission()) {
             return null
         }
 
@@ -216,7 +216,7 @@ class BluetoothControllerImpl(
     }
 
     private fun updatePairedDevices() {
-        if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
+        if (!context.hasBluetoothConnectPermission()) {
             return
         }
 
@@ -226,11 +226,6 @@ class BluetoothControllerImpl(
             ?.also { devices ->
                 _pairedDevices.update { devices }
             }
-    }
-
-    @Suppress("SameParameterValue")
-    private fun hasPermission(permission: String): Boolean {
-        return context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
     }
 
     companion object {
