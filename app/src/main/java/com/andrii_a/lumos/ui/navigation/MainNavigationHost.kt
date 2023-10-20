@@ -6,12 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.andrii_a.lumos.ui.devices.devicesRoute
 import com.andrii_a.lumos.ui.stripe_control.stripeControlRoute
-import com.google.accompanist.systemuicontroller.SystemUiController
 
 @Composable
 fun MainNavigationHost(
     navHostController: NavHostController,
-    systemUiController: SystemUiController,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -19,7 +17,7 @@ fun MainNavigationHost(
         startDestination = Screen.Devices.route,
         modifier = modifier
     ) {
-        devicesRoute(navHostController, systemUiController)
-        stripeControlRoute(navHostController, systemUiController)
+        devicesRoute(navHostController)
+        stripeControlRoute(navHostController)
     }
 }

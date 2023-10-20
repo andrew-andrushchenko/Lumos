@@ -80,9 +80,6 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.compose.material:material-icons-extended")
 
-    // Accompanist
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
-
     // Constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
 
