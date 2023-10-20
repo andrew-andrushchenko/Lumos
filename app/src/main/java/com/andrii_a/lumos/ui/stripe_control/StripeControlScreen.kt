@@ -2,6 +2,11 @@ package com.andrii_a.lumos.ui.stripe_control
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -373,7 +378,11 @@ private fun PresetColorItem(
                     drawCircle(color)
                 }
         ) {
-            if (selected) {
+            AnimatedVisibility(
+                visible = selected,
+                enter = fadeIn() + scaleIn(),
+                exit = fadeOut() + scaleOut()
+            ) {
                 Box(
                     modifier = Modifier
                         .drawBehind {
