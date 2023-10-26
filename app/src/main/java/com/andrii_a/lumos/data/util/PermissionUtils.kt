@@ -20,3 +20,7 @@ fun Context.hasBluetoothConnectPermission(): Boolean {
         true
     }
 }
+
+fun Context.hasNecessaryPermissions(): Boolean {
+    return hasBluetoothScanPermission() && hasBluetoothConnectPermission()
+}
