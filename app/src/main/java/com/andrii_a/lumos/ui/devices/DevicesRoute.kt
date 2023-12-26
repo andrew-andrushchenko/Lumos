@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.andrii_a.lumos.ui.navigation.Screen
-import com.andrii_a.lumos.ui.util.navigateToStripeControl
+import com.andrii_a.lumos.ui.util.navigateToStripControl
 
 fun NavGraphBuilder.devicesRoute(navController: NavController) {
     composable(
@@ -34,7 +34,7 @@ fun NavGraphBuilder.devicesRoute(navController: NavController) {
         DevicesScreen(
             state = state,
             onEvent = viewModel::onEvent,
-            navigateToStripePanel = navController::navigateToStripeControl
+            navigateToStripPanel = navController::navigateToStripControl
         )
     }
 }

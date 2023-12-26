@@ -1,4 +1,4 @@
-package com.andrii_a.lumos.ui.stripe_control
+package com.andrii_a.lumos.ui.strip_control
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -15,9 +15,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.andrii_a.lumos.ui.navigation.Screen
 
-fun NavGraphBuilder.stripeControlRoute(navController: NavController) {
+fun NavGraphBuilder.stripControlRoute(navController: NavController) {
     composable(
-        route = "${Screen.StripeControl.route}/{address}",
+        route = "${Screen.StripControl.route}/{address}",
         arguments = listOf(
             navArgument("address") {
                 type = NavType.StringType
@@ -37,7 +37,7 @@ fun NavGraphBuilder.stripeControlRoute(navController: NavController) {
             )
         }
     ) {
-        val viewModel = hiltViewModel<StripeControlViewModel>()
+        val viewModel = hiltViewModel<StripControlViewModel>()
 
         val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -53,7 +53,7 @@ fun NavGraphBuilder.stripeControlRoute(navController: NavController) {
             }
         }
 
-        StripeControlScreen(
+        StripControlScreen(
             state = state,
             onEvent = viewModel::onEvent
         )

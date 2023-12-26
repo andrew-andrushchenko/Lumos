@@ -1,4 +1,4 @@
-package com.andrii_a.lumos.ui.stripe_control
+package com.andrii_a.lumos.ui.strip_control
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
@@ -72,7 +72,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.andrii_a.lumos.R
-import com.andrii_a.lumos.ui.stripe_control.components.ColorPicker
+import com.andrii_a.lumos.ui.strip_control.components.ColorPicker
 import com.andrii_a.lumos.ui.theme.LumosTheme
 import com.andrii_a.lumos.ui.util.ColorStateSaver
 import com.andrii_a.lumos.ui.util.asHexString
@@ -85,12 +85,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StripeControlScreen(
-    state: StripeControlUiState,
-    onEvent: (StripeControlScreenEvent) -> Unit,
+fun StripControlScreen(
+    state: StripControlUiState,
+    onEvent: (StripControlScreenEvent) -> Unit,
 ) {
     BackHandler(enabled = true) {
-        onEvent(StripeControlScreenEvent.DisconnectFromDevice)
+        onEvent(StripControlScreenEvent.DisconnectFromDevice)
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -105,13 +105,13 @@ fun StripeControlScreen(
                         }
 
                         state.isConnected -> {
-                            Text(text = stringResource(id = R.string.stripe_controls_title))
+                            Text(text = stringResource(id = R.string.strip_controls_title))
                         }
                     }
                 },
                 navigationIcon = {
                     if (state.isConnected) {
-                        IconButton(onClick = { onEvent(StripeControlScreenEvent.DisconnectFromDevice) }) {
+                        IconButton(onClick = { onEvent(StripControlScreenEvent.DisconnectFromDevice) }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = stringResource(id = R.string.disconnect_from_device)
@@ -144,7 +144,7 @@ fun StripeControlScreen(
 
 @Composable
 private fun ConnectingStateContent(
-    onEvent: (StripeControlScreenEvent) -> Unit,
+    onEvent: (StripControlScreenEvent) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
     Column(
@@ -155,7 +155,7 @@ private fun ConnectingStateContent(
             .padding(contentPadding)
     ) {
         val composition by rememberLottieComposition(
-            spec = LottieCompositionSpec.RawRes(R.raw.loading_animation_lights_stripe)
+            spec = LottieCompositionSpec.RawRes(R.raw.loading_animation_lights_strip)
         )
 
         LottieAnimation(
@@ -179,7 +179,7 @@ private fun ConnectingStateContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedButton(onClick = { onEvent(StripeControlScreenEvent.DisconnectFromDevice) }) {
+        OutlinedButton(onClick = { onEvent(StripControlScreenEvent.DisconnectFromDevice) }) {
             Text(text = stringResource(id = R.string.cancel))
         }
     }
@@ -188,7 +188,7 @@ private fun ConnectingStateContent(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ConnectedStateContent(
-    onEvent: (StripeControlScreenEvent) -> Unit,
+    onEvent: (StripControlScreenEvent) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
     Column(
@@ -230,7 +230,7 @@ private fun ConnectedStateContent(
             onValueChange = { sliderPosition = it },
             valueRange = 0f..100f,
             onValueChangeFinished = {
-                onEvent(StripeControlScreenEvent.ChangeBrightness(sliderPosition))
+                onEvent(StripControlScreenEvent.ChangeBrightness(sliderPosition))
             },
             modifier = Modifier.padding(horizontal = 16.dp)
         )
@@ -247,7 +247,7 @@ private fun ConnectedStateContent(
                 .debounce(300)
                 .distinctUntilChanged()
                 .collectLatest {
-                    onEvent(StripeControlScreenEvent.ChangeColor(it.asHsvTriple))
+                    onEvent(StripControlScreenEvent.ChangeColor(it.asHsvTriple))
                 }
         }
 
@@ -402,19 +402,19 @@ private fun PresetColorItem(
     }
 }
 
-private class StripeControlUiStateProvider : PreviewParameterProvider<StripeControlUiState> {
+private class StripControlUiStateProvider : PreviewParameterProvider<StripControlUiState> {
     override val values = sequenceOf(
-        StripeControlUiState(isConnecting = true),
-        StripeControlUiState(isConnected = true)
+        StripControlUiState(isConnecting = true),
+        StripControlUiState(isConnected = true)
     )
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun StripeControlScreenPreview(@PreviewParameter(StripeControlUiStateProvider::class) state: StripeControlUiState) {
+fun StripControlScreenPreview(@PreviewParameter(StripControlUiStateProvider::class) state: StripControlUiState) {
     LumosTheme {
-        StripeControlScreen(
+        StripControlScreen(
             state = state,
             onEvent = {}
         )

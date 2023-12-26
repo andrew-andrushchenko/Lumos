@@ -1,4 +1,4 @@
-package com.andrii_a.lumos.ui.stripe_control
+package com.andrii_a.lumos.ui.strip_control
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -20,22 +20,22 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "StripeControlViewModel"
+private const val TAG = "StripControlViewModel"
 
-sealed interface StripeControlScreenEvent {
-    data class ConnectToDevice(val address: String) : StripeControlScreenEvent
-    data object DisconnectFromDevice : StripeControlScreenEvent
-    data class ChangeColor(val colorHSV: Triple<Float, Float, Float>) : StripeControlScreenEvent
-    data class ChangeBrightness(val brightness: Float) : StripeControlScreenEvent
+sealed interface StripControlScreenEvent {
+    data class ConnectToDevice(val address: String) : StripControlScreenEvent
+    data object DisconnectFromDevice : StripControlScreenEvent
+    data class ChangeColor(val colorHSV: Triple<Float, Float, Float>) : StripControlScreenEvent
+    data class ChangeBrightness(val brightness: Float) : StripControlScreenEvent
 }
 
 @HiltViewModel
-class StripeControlViewModel @Inject constructor(
+class StripControlViewModel @Inject constructor(
     private val bluetoothController: BluetoothController,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(StripeControlUiState())
+    private val _state = MutableStateFlow(StripControlUiState())
     val state = _state.asStateFlow()
 
     private var deviceConnectionJob: Job? = null
@@ -54,13 +54,13 @@ class StripeControlViewModel @Inject constructor(
         }.launchIn(viewModelScope)
 
         savedStateHandle.get<String>("address")?.let { address ->
-            onEvent(StripeControlScreenEvent.ConnectToDevice(address))
+            onEvent(StripControlScreenEvent.ConnectToDevice(address))
         }
     }
 
-    fun onEvent(event: StripeControlScreenEvent) {
+    fun onEvent(event: StripControlScreenEvent) {
         when (event) {
-            is StripeControlScreenEvent.ConnectToDevice -> {
+            is StripControlScreenEvent.ConnectToDevice -> {
                 val device = BluetoothDeviceDomain(
                     name = null,
                     address = event.address,
@@ -70,15 +70,15 @@ class StripeControlViewModel @Inject constructor(
                 connectToDevice(device)
             }
 
-            is StripeControlScreenEvent.DisconnectFromDevice -> {
+            is StripControlScreenEvent.DisconnectFromDevice -> {
                 disconnectFromDevice()
             }
 
-            is StripeControlScreenEvent.ChangeBrightness -> {
+            is StripControlScreenEvent.ChangeBrightness -> {
                 sendMessage("b${event.brightness.toInt()}")
             }
 
-            is StripeControlScreenEvent.ChangeColor -> {
+            is StripControlScreenEvent.ChangeColor -> {
                 sendMessage("c${event.colorHSV.first}")
             }
         }

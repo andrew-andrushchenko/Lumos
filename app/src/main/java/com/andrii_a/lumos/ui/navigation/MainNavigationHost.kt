@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.andrii_a.lumos.ui.devices.devicesRoute
-import com.andrii_a.lumos.ui.stripe_control.stripeControlRoute
+import com.andrii_a.lumos.ui.strip_control.stripControlRoute
 
 @Composable
 fun MainNavigationHost(
@@ -18,6 +18,6 @@ fun MainNavigationHost(
         modifier = modifier
     ) {
         devicesRoute(navHostController)
-        stripeControlRoute(navHostController)
+        stripControlRoute(navHostController)
     }
 }

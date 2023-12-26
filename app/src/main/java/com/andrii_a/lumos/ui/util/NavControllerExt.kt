@@ -4,6 +4,6 @@ import androidx.navigation.NavController
 import com.andrii_a.lumos.domain.models.BluetoothDeviceDomain
 import com.andrii_a.lumos.ui.navigation.Screen
 
-fun NavController.navigateToStripeControl(device: BluetoothDeviceDomain) {
-    this.navigate("${Screen.StripeControl.route}/${device.address}")
+fun NavController.navigateToStripControl(device: BluetoothDeviceDomain) {
+    this.navigate("${Screen.StripControl.route}/${device.address}")
 }

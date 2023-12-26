@@ -1,4 +1,4 @@
-package com.andrii_a.lumos.ui.stripe_control.components
+package com.andrii_a.lumos.ui.strip_control.components
 
 import android.graphics.Bitmap
 import android.graphics.ComposeShader

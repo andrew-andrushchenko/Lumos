@@ -80,7 +80,7 @@ import kotlinx.coroutines.launch
 fun DevicesScreen(
     state: DevicesUiState,
     onEvent: (DevicesScreenEvent) -> Unit,
-    navigateToStripePanel: (BluetoothDeviceDomain) -> Unit
+    navigateToStripPanel: (BluetoothDeviceDomain) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
@@ -103,7 +103,7 @@ fun DevicesScreen(
             DevicesList(
                 state = state,
                 onEvent = onEvent,
-                navigateToStripePanel = navigateToStripePanel,
+                navigateToStripPanel = navigateToStripPanel,
                 contentPadding = innerPadding,
                 modifier = Modifier.fillMaxSize()
             )
@@ -170,7 +170,7 @@ private fun EnableBluetoothBanner(
 private fun DevicesList(
     state: DevicesUiState,
     onEvent: (DevicesScreenEvent) -> Unit,
-    navigateToStripePanel: (BluetoothDeviceDomain) -> Unit,
+    navigateToStripPanel: (BluetoothDeviceDomain) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues()
 ) {
@@ -181,7 +181,7 @@ private fun DevicesList(
 
     PairedDevicesList(
         pairedDevices = state.pairedDevices,
-        onDeviceSelected = navigateToStripePanel,
+        onDeviceSelected = navigateToStripPanel,
         onOpenBottomSheet = { openBottomSheet = !openBottomSheet },
         contentPadding = contentPadding,
         modifier = modifier
@@ -207,7 +207,7 @@ private fun DevicesList(
         ) {
             PairNewDeviceBottomSheet(
                 scannedDevices = state.scannedDevices,
-                navigateToStripePanel = navigateToStripePanel,
+                navigateToStripPanel = navigateToStripPanel,
                 contentPadding = PaddingValues(
                     bottom = bottomPadding
                 ),
@@ -319,7 +319,7 @@ private fun PairedDevicesList(
 @Composable
 private fun PairNewDeviceBottomSheet(
     scannedDevices: List<BluetoothDeviceDomain>,
-    navigateToStripePanel: (BluetoothDeviceDomain) -> Unit,
+    navigateToStripPanel: (BluetoothDeviceDomain) -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
     onDismiss: () -> Unit
 ) {
@@ -348,7 +348,7 @@ private fun PairNewDeviceBottomSheet(
             DeviceListItem(
                 device = device,
                 onClick = {
-                    navigateToStripePanel(device)
+                    navigateToStripPanel(device)
                     onDismiss()
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -474,7 +474,7 @@ fun DevicesScreenPreview(@PreviewParameter(DevicesUiStateProvider::class) state:
         DevicesScreen(
             state = state,
             onEvent = {},
-            navigateToStripePanel = {}
+            navigateToStripPanel = {}
         )
     }
 }

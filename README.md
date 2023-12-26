@@ -2,7 +2,7 @@
 ![Collage 1](/screenshots/Collage1.png)
 ![Collage 2](/screenshots/Collage2.png)
 
-Android part of the Lumos LED stripe project, a unique and beautiful DIY Bluethooth-controlled room ambient light based on the WS2812B addressable LED stripe and HC-06 UART Bluetooth module.
+Android part of the Lumos LED strip project, a unique and beautiful DIY Bluethooth-controlled room ambient light based on the WS2812B addressable LED strip and HC-06 UART Bluetooth module.
 
 ## Known issues
 * The saturation and value selection from the dedicated color panel is laggy for now. To be fixed in future versions.
