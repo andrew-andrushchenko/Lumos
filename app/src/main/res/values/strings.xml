@@ -26,6 +26,16 @@
     <string name="preset_colors">Preset colors:</string>
     <string name="generate_random_hue">Generate random hue</string>
 
+    <!-- Effect names -->
+    <string name="effect_off">Turn off</string>
+    <string name="effect_fireplace">Fireplace</string>
+    <string name="effect_lava_lamp">Lava lamp</string>
+    <string name="effect_rainbow">Rainbow</string>
+    <string name="effect_theater_rainbow">Theater rainbow</string>
+    <string name="effect_plasma">Plasma</string>
+    <string name="effect_fireflies">Fireflies</string>
+    <string name="effect_sparkles">Sparkles</string>
+
     <!-- Permissions control -->
     <string name="permission_required">Permission required</string>
     <string name="permission_required_description">We need some permissions to be able to find and connect to your LED strip.</string>
