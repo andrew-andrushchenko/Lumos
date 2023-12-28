@@ -79,7 +79,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DevicesScreen(
     state: DevicesUiState,
-    onEvent: (DevicesScreenEvent) -> Unit,
+    onEvent: (DevicesEvent) -> Unit,
     navigateToStripPanel: (BluetoothDeviceDomain) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -169,7 +169,7 @@ private fun EnableBluetoothBanner(
 @Composable
 private fun DevicesList(
     state: DevicesUiState,
-    onEvent: (DevicesScreenEvent) -> Unit,
+    onEvent: (DevicesEvent) -> Unit,
     navigateToStripPanel: (BluetoothDeviceDomain) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues()
@@ -191,9 +191,9 @@ private fun DevicesList(
 
     LaunchedEffect(key1 = openBottomSheet) {
         if (openBottomSheet) {
-            onEvent(DevicesScreenEvent.StartDeviceScan)
+            onEvent(DevicesEvent.StartDeviceScan)
         } else {
-            onEvent(DevicesScreenEvent.StopDeviceScan)
+            onEvent(DevicesEvent.StopDeviceScan)
         }
     }
 

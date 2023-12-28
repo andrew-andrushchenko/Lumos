@@ -13,11 +13,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-sealed interface DevicesScreenEvent {
-    data object StartDeviceScan : DevicesScreenEvent
-    data object StopDeviceScan : DevicesScreenEvent
-}
-
 @HiltViewModel
 class DevicesViewModel @Inject constructor(
     private val bluetoothController: BluetoothController
@@ -45,13 +40,13 @@ class DevicesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun onEvent(event: DevicesScreenEvent) {
+    fun onEvent(event: DevicesEvent) {
         when (event) {
-            is DevicesScreenEvent.StartDeviceScan -> {
+            is DevicesEvent.StartDeviceScan -> {
                 startScan()
             }
 
-            is DevicesScreenEvent.StopDeviceScan -> {
+            is DevicesEvent.StopDeviceScan -> {
                 stopScan()
             }
         }
