@@ -87,10 +87,10 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Composable
 fun StripControlScreen(
     state: StripControlUiState,
-    onEvent: (StripControlScreenEvent) -> Unit,
+    onEvent: (StripControlEvent) -> Unit,
 ) {
     BackHandler(enabled = true) {
-        onEvent(StripControlScreenEvent.DisconnectFromDevice)
+        onEvent(StripControlEvent.DisconnectFromDevice)
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -111,7 +111,7 @@ fun StripControlScreen(
                 },
                 navigationIcon = {
                     if (state.isConnected) {
-                        IconButton(onClick = { onEvent(StripControlScreenEvent.DisconnectFromDevice) }) {
+                        IconButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = stringResource(id = R.string.disconnect_from_device)
@@ -144,7 +144,7 @@ fun StripControlScreen(
 
 @Composable
 private fun ConnectingStateContent(
-    onEvent: (StripControlScreenEvent) -> Unit,
+    onEvent: (StripControlEvent) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
     Column(
@@ -179,7 +179,7 @@ private fun ConnectingStateContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedButton(onClick = { onEvent(StripControlScreenEvent.DisconnectFromDevice) }) {
+        OutlinedButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
             Text(text = stringResource(id = R.string.cancel))
         }
     }
@@ -188,7 +188,7 @@ private fun ConnectingStateContent(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ConnectedStateContent(
-    onEvent: (StripControlScreenEvent) -> Unit,
+    onEvent: (StripControlEvent) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
     Column(
@@ -230,7 +230,7 @@ private fun ConnectedStateContent(
             onValueChange = { sliderPosition = it },
             valueRange = 0f..100f,
             onValueChangeFinished = {
-                onEvent(StripControlScreenEvent.ChangeBrightness(sliderPosition))
+                onEvent(StripControlEvent.ChangeBrightness(sliderPosition))
             },
             modifier = Modifier.padding(horizontal = 16.dp)
         )
@@ -247,7 +247,7 @@ private fun ConnectedStateContent(
                 .debounce(300)
                 .distinctUntilChanged()
                 .collectLatest {
-                    onEvent(StripControlScreenEvent.ChangeColor(it.asHsvTriple))
+                    onEvent(StripControlEvent.ChangeColor(it.asHsvTriple))
                 }
         }
 

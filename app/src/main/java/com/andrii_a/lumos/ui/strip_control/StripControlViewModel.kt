@@ -22,13 +22,6 @@ import javax.inject.Inject
 
 private const val TAG = "StripControlViewModel"
 
-sealed interface StripControlScreenEvent {
-    data class ConnectToDevice(val address: String) : StripControlScreenEvent
-    data object DisconnectFromDevice : StripControlScreenEvent
-    data class ChangeColor(val colorHSV: Triple<Float, Float, Float>) : StripControlScreenEvent
-    data class ChangeBrightness(val brightness: Float) : StripControlScreenEvent
-}
-
 @HiltViewModel
 class StripControlViewModel @Inject constructor(
     private val bluetoothController: BluetoothController,
@@ -54,13 +47,13 @@ class StripControlViewModel @Inject constructor(
         }.launchIn(viewModelScope)
 
         savedStateHandle.get<String>("address")?.let { address ->
-            onEvent(StripControlScreenEvent.ConnectToDevice(address))
+            onEvent(StripControlEvent.ConnectToDevice(address))
         }
     }
 
-    fun onEvent(event: StripControlScreenEvent) {
+    fun onEvent(event: StripControlEvent) {
         when (event) {
-            is StripControlScreenEvent.ConnectToDevice -> {
+            is StripControlEvent.ConnectToDevice -> {
                 val device = BluetoothDeviceDomain(
                     name = null,
                     address = event.address,
@@ -70,15 +63,15 @@ class StripControlViewModel @Inject constructor(
                 connectToDevice(device)
             }
 
-            is StripControlScreenEvent.DisconnectFromDevice -> {
+            is StripControlEvent.DisconnectFromDevice -> {
                 disconnectFromDevice()
             }
 
-            is StripControlScreenEvent.ChangeBrightness -> {
+            is StripControlEvent.ChangeBrightness -> {
                 sendMessage("b${event.brightness.toInt()}")
             }
 
-            is StripControlScreenEvent.ChangeColor -> {
+            is StripControlEvent.ChangeColor -> {
                 sendMessage("c${event.colorHSV.first}")
             }
         }
