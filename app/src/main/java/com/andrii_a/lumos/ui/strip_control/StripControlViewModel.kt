@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andrii_a.lumos.domain.CommProtocol
 import com.andrii_a.lumos.domain.controllers.BluetoothController
 import com.andrii_a.lumos.domain.controllers.ConnectionResult
 import com.andrii_a.lumos.domain.enums.BluetoothDeviceType
@@ -67,12 +68,17 @@ class StripControlViewModel @Inject constructor(
                 disconnectFromDevice()
             }
 
-            is StripControlEvent.ChangeBrightness -> {
-                sendMessage("b${event.brightness.toInt()}")
+            is StripControlEvent.ChangeEffect -> {
+                sendMessage(CommProtocol.changeEffect(event.effect.id))
+                _state.update { it.copy(selectedEffect = event.effect) }
             }
 
-            is StripControlEvent.ChangeColor -> {
-                sendMessage("c${event.colorHSV.first}")
+            is StripControlEvent.ChangeBrightness -> {
+                sendMessage(CommProtocol.changeBrightness(event.brightness.toInt()))
+            }
+
+            is StripControlEvent.ChangeFireplaceHue -> {
+                sendMessage(CommProtocol.changeFireplaceHue(event.hue))
             }
         }
     }
