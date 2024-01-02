@@ -56,14 +56,10 @@ fun StripControlScreen(
     onEvent: (StripControlEvent) -> Unit,
 ) {
     BackHandler(enabled = true) {
-        when (state.selectedEffect) {
-            Effect.StripOff -> {
-                onEvent(StripControlEvent.DisconnectFromDevice)
-            }
-
-            else -> {
-                onEvent(StripControlEvent.ChangeEffect(Effect.StripOff))
-            }
+        if (state.isEffectsMenuVisible) {
+            onEvent(StripControlEvent.DisconnectFromDevice)
+        } else {
+            onEvent(StripControlEvent.ShowEffectsMenu)
         }
     }
 
@@ -79,29 +75,29 @@ fun StripControlScreen(
                         }
 
                         state.isConnected -> {
-                            Text(text = stringResource(id = state.selectedEffect.nameRes))
+                            if (state.isEffectsMenuVisible) {
+                                Text(text = stringResource(id = R.string.strip_controls_menu_title))
+                            } else {
+                                Text(text = stringResource(id = state.selectedEffect.nameRes))
+                            }
                         }
                     }
                 },
                 navigationIcon = {
                     if (state.isConnected) {
-                        when (state.selectedEffect) {
-                            Effect.StripOff -> {
-                                IconButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Close,
-                                        contentDescription = stringResource(id = R.string.disconnect_from_device)
-                                    )
-                                }
+                        if (state.isEffectsMenuVisible) {
+                            IconButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = stringResource(id = R.string.disconnect_from_device)
+                                )
                             }
-
-                            else -> {
-                                IconButton(onClick = { onEvent(StripControlEvent.ChangeEffect(Effect.StripOff)) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ArrowBack,
-                                        contentDescription = stringResource(id = R.string.disconnect_from_device)
-                                    )
-                                }
+                        } else {
+                            IconButton(onClick = { onEvent(StripControlEvent.ShowEffectsMenu) }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = stringResource(id = R.string.disconnect_from_device)
+                                )
                             }
                         }
                     }
@@ -179,17 +175,32 @@ private fun ConnectedStateContent(
     onEvent: (StripControlEvent) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
-    when (state.selectedEffect) {
-        Effect.StripOff -> {
-            EffectList(
-                onEffectSelected = { effect ->
-                    onEvent(StripControlEvent.ChangeEffect(effect))
-                },
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding)
-            )
-        }
+    if (state.isEffectsMenuVisible) {
+        EffectList(
+            onEffectSelected = { effect ->
+                onEvent(StripControlEvent.ChangeEffect(effect))
+            },
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
+        )
+    } else {
+        EffectControls(
+            effect = state.selectedEffect,
+            onEvent = onEvent,
+            contentPadding = contentPadding
+        )
+    }
+}
+
+@Composable
+private fun EffectControls(
+    effect: Effect,
+    onEvent: (StripControlEvent) -> Unit,
+    contentPadding: PaddingValues = PaddingValues()
+) {
+    when (effect) {
+        Effect.None -> Unit
 
         Effect.Fireplace -> {
             FireplaceEffectControls(
@@ -279,7 +290,12 @@ private fun ConnectedStateContent(
 private class StripControlUiStateProvider : PreviewParameterProvider<StripControlUiState> {
     override val values = sequenceOf(
         StripControlUiState(isConnecting = true),
-        StripControlUiState(isConnected = true)
+        StripControlUiState(isConnected = true, isEffectsMenuVisible = true),
+        StripControlUiState(
+            isConnected = true,
+            isEffectsMenuVisible = false,
+            selectedEffect = Effect.Fireflies
+        )
     )
 }
 

@@ -30,12 +30,14 @@ fun EffectList(
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
     ) {
-        Effect.entries.forEach { effect ->
-            EffectItem(
-                effect = effect,
-                onClick = { onEffectSelected(effect) }
-            )
-        }
+        Effect.entries
+            .filter { it != Effect.None }
+            .forEach { effect ->
+                EffectItem(
+                    effect = effect,
+                    onClick = { onEffectSelected(effect) }
+                )
+            }
     }
 }
 

@@ -9,6 +9,7 @@ import com.andrii_a.lumos.domain.controllers.BluetoothController
 import com.andrii_a.lumos.domain.controllers.ConnectionResult
 import com.andrii_a.lumos.domain.enums.BluetoothDeviceType
 import com.andrii_a.lumos.domain.models.BluetoothDeviceDomain
+import com.andrii_a.lumos.ui.strip_control.effects.Effect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -68,9 +69,23 @@ class StripControlViewModel @Inject constructor(
                 disconnectFromDevice()
             }
 
+            is StripControlEvent.ShowEffectsMenu -> {
+                _state.update {
+                    it.copy(
+                        isEffectsMenuVisible = true,
+                        selectedEffect = Effect.None
+                    )
+                }
+            }
+
             is StripControlEvent.ChangeEffect -> {
                 sendMessage(CommProtocol.changeEffect(event.effect.id))
-                _state.update { it.copy(selectedEffect = event.effect) }
+                _state.update {
+                    it.copy(
+                        isEffectsMenuVisible = false,
+                        selectedEffect = event.effect
+                    )
+                }
             }
 
             is StripControlEvent.ChangeBrightness -> {

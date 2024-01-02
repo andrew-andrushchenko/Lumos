@@ -9,7 +9,7 @@ enum class Effect(
     @StringRes val nameRes: Int,
     @DrawableRes val iconRes: Int
 ) {
-    StripOff(id = 0, nameRes = R.string.effect_off, iconRes = R.drawable.ic_led_off),
+    None(id = 0, nameRes = R.string.effect_off, iconRes = R.drawable.ic_led_off),
     Fireplace(id = 1, nameRes = R.string.effect_fireplace, iconRes = R.drawable.ic_fireplace),
     LavaLamp(id = 2, nameRes = R.string.effect_lava_lamp, iconRes = R.drawable.ic_lava_lamp),
     Rainbow(id = 3, nameRes = R.string.effect_rainbow, iconRes = R.drawable.ic_rainbow),
