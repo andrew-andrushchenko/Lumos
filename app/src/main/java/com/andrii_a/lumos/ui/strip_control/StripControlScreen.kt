@@ -56,7 +56,15 @@ fun StripControlScreen(
     onEvent: (StripControlEvent) -> Unit,
 ) {
     BackHandler(enabled = true) {
-        onEvent(StripControlEvent.DisconnectFromDevice)
+        when (state.selectedEffect) {
+            Effect.StripOff -> {
+                onEvent(StripControlEvent.DisconnectFromDevice)
+            }
+
+            else -> {
+                onEvent(StripControlEvent.ChangeEffect(Effect.StripOff))
+            }
+        }
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
