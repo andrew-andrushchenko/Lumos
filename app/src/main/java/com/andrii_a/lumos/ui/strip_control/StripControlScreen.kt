@@ -42,6 +42,10 @@ import com.andrii_a.lumos.ui.strip_control.components.EffectList
 import com.andrii_a.lumos.ui.strip_control.effects.Effect
 import com.andrii_a.lumos.ui.strip_control.effects.FireplaceEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.LavaLampEffectControls
+import com.andrii_a.lumos.ui.strip_control.effects.PlasmaEffectControls
+import com.andrii_a.lumos.ui.strip_control.effects.RainbowEffectControls
+import com.andrii_a.lumos.ui.strip_control.effects.SparklesEffectControls
+import com.andrii_a.lumos.ui.strip_control.effects.TheaterRainbowEffectControls
 import com.andrii_a.lumos.ui.theme.LumosTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -203,11 +207,50 @@ private fun ConnectedStateContent(
             )
         }
 
-        Effect.Rainbow -> {}
-        Effect.TheaterRainbow -> {}
-        Effect.Plasma -> {}
+        Effect.Rainbow -> {
+            RainbowEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
+
+        Effect.TheaterRainbow -> {
+            TheaterRainbowEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
+
+        Effect.Plasma -> {
+            PlasmaEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
+
         Effect.Fireflies -> {}
-        Effect.Sparkles -> {}
+        Effect.Sparkles -> {
+            SparklesEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
     }
 }
 
