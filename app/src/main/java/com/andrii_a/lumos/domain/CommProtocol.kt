@@ -7,5 +7,7 @@ object CommProtocol {
 
     fun changeFireplaceHue(hue: Float) = "<h$hue>"
 
+    fun changeFirefliesAmount(amount: Int) = "<fa$amount>"
+
     //TODO: To be complemented later.
 }

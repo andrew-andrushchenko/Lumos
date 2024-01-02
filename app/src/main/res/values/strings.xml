@@ -25,6 +25,7 @@
     <string name="pick_a_color">Pick a color:</string>
     <string name="preset_colors">Preset colors:</string>
     <string name="generate_random_hue">Generate random hue</string>
+    <string name="fireflies_amount_formatted" translatable="false">Fireflies: %d</string>
 
     <!-- Effect names -->
     <string name="effect_off">Turn off</string>

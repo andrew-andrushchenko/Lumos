@@ -40,6 +40,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.andrii_a.lumos.R
 import com.andrii_a.lumos.ui.strip_control.components.EffectList
 import com.andrii_a.lumos.ui.strip_control.effects.Effect
+import com.andrii_a.lumos.ui.strip_control.effects.FirefliesEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.FireplaceEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.LavaLampEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.PlasmaEffectControls
@@ -240,7 +241,20 @@ private fun ConnectedStateContent(
             )
         }
 
-        Effect.Fireflies -> {}
+        Effect.Fireflies -> {
+            FirefliesEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                onFirefliesAmountChanged = { amount ->
+                    onEvent(StripControlEvent.ChangeFirefliesAmount(amount))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
+
         Effect.Sparkles -> {
             SparklesEffectControls(
                 onBrightnessChanged = { brightness ->

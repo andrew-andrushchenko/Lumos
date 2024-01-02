@@ -8,4 +8,5 @@ sealed interface StripControlEvent {
     data class ChangeEffect(val effect: Effect) : StripControlEvent
     data class ChangeFireplaceHue(val hue: Float) : StripControlEvent
     data class ChangeBrightness(val brightness: Float) : StripControlEvent
+    data class ChangeFirefliesAmount(val amount: Int) : StripControlEvent
 }

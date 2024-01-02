@@ -80,6 +80,10 @@ class StripControlViewModel @Inject constructor(
             is StripControlEvent.ChangeFireplaceHue -> {
                 sendMessage(CommProtocol.changeFireplaceHue(event.hue))
             }
+
+            is StripControlEvent.ChangeFirefliesAmount -> {
+                sendMessage(CommProtocol.changeFirefliesAmount(event.amount))
+            }
         }
     }
 
