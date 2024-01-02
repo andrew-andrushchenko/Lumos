@@ -41,6 +41,7 @@ import com.andrii_a.lumos.R
 import com.andrii_a.lumos.ui.strip_control.components.EffectList
 import com.andrii_a.lumos.ui.strip_control.effects.Effect
 import com.andrii_a.lumos.ui.strip_control.effects.FireplaceEffectControls
+import com.andrii_a.lumos.ui.strip_control.effects.LavaLampEffectControls
 import com.andrii_a.lumos.ui.theme.LumosTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -191,7 +192,17 @@ private fun ConnectedStateContent(
             )
         }
 
-        Effect.LavaLamp -> {}
+        Effect.LavaLamp -> {
+            LavaLampEffectControls(
+                onBrightnessChanged = { brightness ->
+                    onEvent(StripControlEvent.ChangeBrightness(brightness))
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding)
+            )
+        }
+
         Effect.Rainbow -> {}
         Effect.TheaterRainbow -> {}
         Effect.Plasma -> {}
