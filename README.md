@@ -2,9 +2,24 @@
 ![Collage 1](/screenshots/Collage1.png)
 ![Collage 2](/screenshots/Collage2.png)
 
-Android part of the Lumos LED strip project, a unique and beautiful DIY Bluethooth-controlled room ambient light based on the WS2812B addressable LED strip and HC-06 UART Bluetooth module.
+Android part of the Lumos LED strip project, a unique and beautiful DIY Bluethooth-controlled garland based on the WS2812B addressable LED strip and HC-06 UART Bluetooth module.
 
-## Known issues
+## Goals for this project
+* Explore the capabilities of communication between Android and Arduino platforms using Bluetooth;
+* Build a unique DIY garland with various interesting effects;
+* Practice controlling hardware components on the Android platform;
+* Practice programming microcontrollers (currently the ATMega328P), data exchange and parsing, and creating state machines.
+
+## TODO
+- [x] Implement app permission handling;
+- [x] Add effects;
+- [ ] Add more controls to different garland effects;
+- [ ] Improve communication protocol:
+  - [ ] define a fixed command size;
+  - [ ] calculate the command checksum and attach it to the data frame;
+  - [ ] obtain transmission status information (feedback from the Arduino after each transmitted command).
+
+## Known issues (Android app)
 * The saturation and value selection from the dedicated color panel is laggy for now. To be fixed in future versions.
 
 ## Special thanks
