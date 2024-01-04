@@ -5,6 +5,13 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -99,20 +106,34 @@ fun DevicesScreen(
         },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
-        if (state.isBluetoothEnabled) {
-            DevicesList(
-                state = state,
-                onEvent = onEvent,
-                navigateToStripPanel = navigateToStripPanel,
-                contentPadding = innerPadding,
-                modifier = Modifier.fillMaxSize()
-            )
-        } else {
-            EnableBluetoothBanner(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            )
+        AnimatedContent(
+            targetState = state.isBluetoothEnabled,
+            label = "AnimatedContentForDevicesScreen",
+            transitionSpec = {
+                fadeIn(
+                    animationSpec = tween(300, easing = EaseIn)
+                ).togetherWith(
+                    fadeOut(
+                        animationSpec = tween(300, easing = EaseOut)
+                    )
+                )
+            }
+        ) { isBluetoothEnabled ->
+            if (isBluetoothEnabled) {
+                DevicesList(
+                    state = state,
+                    onEvent = onEvent,
+                    navigateToStripPanel = navigateToStripPanel,
+                    contentPadding = innerPadding,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                EnableBluetoothBanner(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                )
+            }
         }
     }
 }
