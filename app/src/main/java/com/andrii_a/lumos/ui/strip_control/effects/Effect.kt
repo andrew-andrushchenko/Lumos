@@ -18,3 +18,6 @@ enum class Effect(
     Fireflies(id = 6, nameRes = R.string.effect_fireflies, iconRes = R.drawable.ic_fireflies),
     Sparkles(id = 7, nameRes = R.string.effect_sparkles, iconRes = R.drawable.ic_sparkles)
 }
+
+val menuListItems: List<Effect>
+    get() = Effect.entries.filter { it != Effect.None }
