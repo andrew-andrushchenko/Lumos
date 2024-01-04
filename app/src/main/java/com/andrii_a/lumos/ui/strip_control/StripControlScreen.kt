@@ -198,7 +198,7 @@ private fun ConnectedStateContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(contentPadding)
-                .padding(8.dp)
+                .padding(horizontal = 16.dp)
         )
     } else {
         EffectControls(
