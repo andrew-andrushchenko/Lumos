@@ -2,6 +2,12 @@ package com.andrii_a.lumos.ui.strip_control
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -84,20 +90,29 @@ fun StripControlScreen(
                     }
                 },
                 navigationIcon = {
-                    if (state.isConnected) {
-                        if (state.isEffectsMenuVisible) {
-                            IconButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = stringResource(id = R.string.disconnect_from_device)
-                                )
-                            }
-                        } else {
-                            IconButton(onClick = { onEvent(StripControlEvent.ShowEffectsMenu) }) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowBack,
-                                    contentDescription = stringResource(id = R.string.disconnect_from_device)
-                                )
+                    AnimatedVisibility(
+                        visible = state.isConnected,
+                        enter = scaleIn() + fadeIn(),
+                        exit = scaleOut() + fadeOut()
+                    ) {
+                        AnimatedContent(
+                            targetState = state.isEffectsMenuVisible,
+                            label = "AnimatedTopBarNavigationButton"
+                        ) { isMenuVisible ->
+                            if (isMenuVisible) {
+                                IconButton(onClick = { onEvent(StripControlEvent.DisconnectFromDevice) }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = stringResource(id = R.string.disconnect_from_device)
+                                    )
+                                }
+                            } else {
+                                IconButton(onClick = { onEvent(StripControlEvent.ShowEffectsMenu) }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowBack,
+                                        contentDescription = stringResource(id = R.string.disconnect_from_device)
+                                    )
+                                }
                             }
                         }
                     }
