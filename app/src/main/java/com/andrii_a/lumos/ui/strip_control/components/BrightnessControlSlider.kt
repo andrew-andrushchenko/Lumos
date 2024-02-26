@@ -1,13 +1,10 @@
 package com.andrii_a.lumos.ui.strip_control.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Brightness5
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -43,17 +40,12 @@ fun BrightnessControlSlider(
         Icon(
             imageVector = Icons.Outlined.Brightness5,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.secondaryContainer,
             modifier = Modifier
                 .constrainAs(brightnessIcon) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 }
-                .background(
-                    color = MaterialTheme.colorScheme.secondary,
-                    shape = CircleShape
-                )
                 .padding(8.dp)
         )
 
