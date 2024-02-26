@@ -12,6 +12,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -31,6 +32,10 @@ fun BrightnessControlSlider(
     modifier: Modifier = Modifier
 ) {
     var sliderPosition by rememberSaveable { mutableFloatStateOf(0f) }
+
+    LaunchedEffect(key1 = sliderPosition) {
+        onBrightnessSet(sliderPosition)
+    }
 
     ConstraintLayout(modifier = modifier) {
         val (brightnessIcon, slider, brightnessValueText) = createRefs()
@@ -56,9 +61,9 @@ fun BrightnessControlSlider(
             value = sliderPosition,
             onValueChange = { sliderPosition = it },
             valueRange = 0f..100f,
-            onValueChangeFinished = {
+            /*onValueChangeFinished = {
                 onBrightnessSet(sliderPosition)
-            },
+            },*/
             modifier = Modifier.constrainAs(slider) {
                 top.linkTo(brightnessIcon.top)
                 bottom.linkTo(brightnessIcon.bottom)
