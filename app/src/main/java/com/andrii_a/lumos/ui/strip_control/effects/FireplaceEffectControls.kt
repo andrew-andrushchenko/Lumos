@@ -61,7 +61,7 @@ import com.andrii_a.lumos.ui.util.presetColors
 @Composable
 fun FireplaceEffectControls(
     onBrightnessChanged: (Float) -> Unit,
-    onHueChanged: (Float) -> Unit,
+    onColorChanged: (Color) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
@@ -89,7 +89,7 @@ fun FireplaceEffectControls(
                 .collectLatest {
                     onEvent(StripControlEvent.ChangeColor(it.asHsvTriple))
                 }*/
-            onHueChanged(selectedColor.asHsvTriple.first)
+            onColorChanged(selectedColor)
         }
 
         Row(
@@ -251,7 +251,7 @@ fun FireplaceEffectControlsPreview() {
         Surface {
             FireplaceEffectControls(
                 onBrightnessChanged = {},
-                onHueChanged = {},
+                onColorChanged = {},
                 modifier = Modifier.fillMaxSize()
             )
         }

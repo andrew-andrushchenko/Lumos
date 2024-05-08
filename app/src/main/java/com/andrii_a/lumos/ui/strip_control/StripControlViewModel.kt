@@ -79,25 +79,43 @@ class StripControlViewModel @Inject constructor(
             }
 
             is StripControlEvent.ChangeEffect -> {
-                sendMessage(CommProtocol.changeEffect(event.effect.id))
+                val changeEffectInstruction = CommProtocol.changeEffect(event.effect.id)
+                sendMessage(changeEffectInstruction)
+
                 _state.update {
                     it.copy(
                         isEffectsMenuVisible = false,
-                        selectedEffect = event.effect
+                        selectedEffect = event.effect,
+                        lastSentInstruction = changeEffectInstruction
                     )
                 }
             }
 
             is StripControlEvent.ChangeBrightness -> {
-                sendMessage(CommProtocol.changeBrightness(event.brightness.toInt()))
+                val changeBrightnessInstruction = CommProtocol.changeBrightness(event.brightness.toInt())
+                sendMessage(changeBrightnessInstruction)
+
+                _state.update {
+                    it.copy(lastSentInstruction = changeBrightnessInstruction)
+                }
             }
 
-            is StripControlEvent.ChangeFireplaceHue -> {
-                sendMessage(CommProtocol.changeFireplaceHue(event.hue))
+            is StripControlEvent.ChangeFireplaceColor -> {
+                val changeFireplaceColorInstruction = CommProtocol.changeFireplaceColor(event.colorHexString)
+                sendMessage(changeFireplaceColorInstruction)
+
+                _state.update {
+                    it.copy(lastSentInstruction = changeFireplaceColorInstruction)
+                }
             }
 
             is StripControlEvent.ChangeFirefliesAmount -> {
-                sendMessage(CommProtocol.changeFirefliesAmount(event.amount))
+                val changeFirefliesAmountInstruction = CommProtocol.changeFirefliesAmount(event.amount)
+                sendMessage(changeFirefliesAmountInstruction)
+
+                _state.update {
+                    it.copy(lastSentInstruction = changeFirefliesAmountInstruction)
+                }
             }
         }
     }
@@ -146,11 +164,17 @@ class StripControlViewModel @Inject constructor(
                         )
                     }
 
-                    Log.d(TAG, "Connection established.")
+                    Log.d(TAG, "ListenerFlow: Bluetooth connection established.")
                 }
 
                 is ConnectionResult.TransferSucceeded -> {
-                    Log.d(TAG, "Obtained message: ${result.message}")
+                    _state.update {
+                        it.copy(
+                            receivedMessages = it.receivedMessages + result.message
+                        )
+                    }
+
+                    Log.d(TAG, "ListenerFlow: Obtained message: ${result.message}")
                 }
 
                 is ConnectionResult.Error -> {
@@ -161,9 +185,10 @@ class StripControlViewModel @Inject constructor(
                             errorMessage = result.message
                         )
                     }
+                    Log.e(TAG, "ListenerFlow: Transfer error: ${result.message}")
                 }
             }
-        }.catch {
+        }.catch { throwable ->
             bluetoothController.closeConnection()
             _state.update {
                 it.copy(
@@ -171,6 +196,7 @@ class StripControlViewModel @Inject constructor(
                     isConnecting = false,
                 )
             }
+            Log.e(TAG, "ListenerFlow: Connection interrupted.", throwable)
         }.launchIn(viewModelScope)
     }
 }

@@ -54,6 +54,7 @@ import com.andrii_a.lumos.ui.strip_control.effects.RainbowEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.SparklesEffectControls
 import com.andrii_a.lumos.ui.strip_control.effects.TheaterRainbowEffectControls
 import com.andrii_a.lumos.ui.theme.LumosTheme
+import com.andrii_a.lumos.ui.util.asHexString
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -223,8 +224,8 @@ private fun EffectControls(
                 onBrightnessChanged = { brightness ->
                     onEvent(StripControlEvent.ChangeBrightness(brightness))
                 },
-                onHueChanged = { hue ->
-                    onEvent(StripControlEvent.ChangeFireplaceHue(hue))
+                onColorChanged = { color ->
+                    onEvent(StripControlEvent.ChangeFireplaceColor(color.asHexString))
                 },
                 modifier = Modifier
                     .fillMaxSize()

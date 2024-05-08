@@ -1,6 +1,5 @@
 package com.andrii_a.lumos.ui.strip_control.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +48,6 @@ fun EffectList(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EffectItem(
     effect: Effect,

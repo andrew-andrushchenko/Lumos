@@ -60,12 +60,12 @@ val ComposeColor.asHsvTriple: Triple<Float, Float, Float>
     }
 
 val ComposeColor.asHexString: String
-    @OptIn(ExperimentalStdlibApi::class)
-    get() = this.toArgb().toHexString(
+    //@OptIn(ExperimentalStdlibApi::class)
+    get() = String.format("#%06X", (0xFFFFFF and this.toArgb()))/*this.toArgb().toHexString(
         HexFormat {
             number {
                 upperCase = true
                 prefix = "#"
             }
         }
-    )
+    )*/

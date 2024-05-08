@@ -7,7 +7,7 @@ sealed interface StripControlEvent {
     data object DisconnectFromDevice : StripControlEvent
     data object ShowEffectsMenu : StripControlEvent
     data class ChangeEffect(val effect: Effect) : StripControlEvent
-    data class ChangeFireplaceHue(val hue: Float) : StripControlEvent
+    data class ChangeFireplaceColor(val colorHexString: String) : StripControlEvent
     data class ChangeBrightness(val brightness: Float) : StripControlEvent
     data class ChangeFirefliesAmount(val amount: Int) : StripControlEvent
 }
