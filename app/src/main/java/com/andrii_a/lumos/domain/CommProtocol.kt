@@ -10,12 +10,8 @@ private enum class Command(val num: Int) {
 }
 
 object CommProtocol {
-    fun changeEffect(effectId: Int) = buildString {
-        append("!")
-        append(Command.CHANGE_EFFECT.num)
-        append("0".repeat(7))
-        append(effectId)
-        append("$")
+    fun changeEffect(effectId: Int): String {
+        return "!${Command.CHANGE_EFFECT.num}${"0".repeat(6)}$effectId$"
     }
 
     fun changeBrightness(brightnessLevel: Int) = buildString {
@@ -24,15 +20,15 @@ object CommProtocol {
 
         when {
             brightnessLevel < 10 -> {
-                append("0".repeat(7))
-            }
-
-            brightnessLevel in 10..99 -> {
                 append("0".repeat(6))
             }
 
-            brightnessLevel > 100 -> {
+            brightnessLevel in 10..99 -> {
                 append("0".repeat(5))
+            }
+
+            brightnessLevel > 100 -> {
+                append("0".repeat(4))
             }
         }
 
@@ -40,25 +36,18 @@ object CommProtocol {
         append("$")
     }
 
-    fun changeFireplaceColor(colorHexString: String) = buildString {
-        append("!")
-        append(Command.CHANGE_FIREPLACE_COLOR.num)
-        append(colorHexString)
-        append("$")
+    fun changeFireplaceColor(colorHexString: String): String {
+        return "!${Command.CHANGE_FIREPLACE_COLOR.num}$colorHexString$"
     }
 
-    fun changeFirefliesAmount(amount: Int) = buildString {
-        append("!")
-        append(Command.CHANGE_FIREFLIES_AMOUNT.num)
-        append("0".repeat(7))
-        append(amount)
-        append("$")
+    fun changeFirefliesAmount(amount: Int): String {
+        return "!${Command.CHANGE_FIREFLIES_AMOUNT.num}${"0".repeat(6)}$amount$"
     }
 
     fun changeFirefliesColorGenerationMode(enableAutoGeneration: Boolean) = buildString {
         append("!")
         append(Command.CHANGE_FIREFLIES_COLOR_GENERATION_MODE.num)
-        append("0".repeat(7))
+        append("0".repeat(6))
         append(if (enableAutoGeneration) 1 else 0)
         append("$")
     }
