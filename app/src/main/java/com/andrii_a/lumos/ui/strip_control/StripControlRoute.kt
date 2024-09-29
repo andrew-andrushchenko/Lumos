@@ -10,20 +10,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.andrii_a.lumos.ui.navigation.Screen
 
 fun NavGraphBuilder.stripControlRoute(navController: NavController) {
-    composable(
-        route = "${Screen.StripControl.route}/{address}",
-        arguments = listOf(
-            navArgument("address") {
-                type = NavType.StringType
-                nullable = false
-            }
-        ),
+    composable<Screen.StripControl>(
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Up,

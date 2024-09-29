@@ -1,6 +1,11 @@
 package com.andrii_a.lumos.ui.navigation
 
-enum class Screen(val route: String) {
-    Devices("devices_screen"),
-    StripControl("strip_control_screen")
+import kotlinx.serialization.Serializable
+
+sealed interface Screen {
+    @Serializable
+    data object Devices : Screen
+
+    @Serializable
+    data class StripControl(val btDeviceAddress: String) : Screen
 }

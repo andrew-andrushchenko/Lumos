@@ -5,5 +5,5 @@ import com.andrii_a.lumos.domain.models.BluetoothDeviceDomain
 import com.andrii_a.lumos.ui.navigation.Screen
 
 fun NavController.navigateToStripControl(device: BluetoothDeviceDomain) {
-    this.navigate("${Screen.StripControl.route}/${device.address}")
+    this.navigate(Screen.StripControl(device.address))
 }

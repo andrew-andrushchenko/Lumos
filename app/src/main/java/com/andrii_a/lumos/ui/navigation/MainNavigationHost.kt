@@ -14,7 +14,7 @@ fun MainNavigationHost(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Devices.route,
+        startDestination = Screen.Devices,
         modifier = modifier
     ) {
         devicesRoute(navHostController)

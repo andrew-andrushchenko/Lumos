@@ -12,8 +12,7 @@ import com.andrii_a.lumos.ui.navigation.Screen
 import com.andrii_a.lumos.ui.util.navigateToStripControl
 
 fun NavGraphBuilder.devicesRoute(navController: NavController) {
-    composable(
-        route = Screen.Devices.route,
+    composable<Screen.Devices>(
         popEnterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Companion.Right,

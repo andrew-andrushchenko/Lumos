@@ -4,11 +4,13 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.andrii_a.lumos.domain.CommProtocol
 import com.andrii_a.lumos.domain.controllers.BluetoothController
 import com.andrii_a.lumos.domain.controllers.ConnectionResult
 import com.andrii_a.lumos.domain.enums.BluetoothDeviceType
 import com.andrii_a.lumos.domain.models.BluetoothDeviceDomain
+import com.andrii_a.lumos.ui.navigation.Screen
 import com.andrii_a.lumos.ui.strip_control.effects.Effect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -48,9 +50,8 @@ class StripControlViewModel @Inject constructor(
             _state.update { it.copy(errorMessage = error) }
         }.launchIn(viewModelScope)
 
-        savedStateHandle.get<String>("address")?.let { address ->
-            onEvent(StripControlEvent.ConnectToDevice(address))
-        }
+        val address = savedStateHandle.toRoute<Screen.StripControl>().btDeviceAddress
+        onEvent(StripControlEvent.ConnectToDevice(address))
     }
 
     fun onEvent(event: StripControlEvent) {
