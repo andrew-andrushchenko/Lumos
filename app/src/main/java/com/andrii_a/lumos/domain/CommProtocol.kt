@@ -11,7 +11,7 @@ private enum class Command(val num: Int) {
 
 object CommProtocol {
     fun changeEffect(effectId: Int): String {
-        return "!${Command.CHANGE_EFFECT};$effectId$"
+        return "!${Command.CHANGE_EFFECT.num};$effectId$"
     }
 
     fun changeBrightness(brightnessLevel: Int) : String {
