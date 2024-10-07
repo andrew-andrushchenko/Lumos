@@ -11,33 +11,15 @@ private enum class Command(val num: Int) {
 
 object CommProtocol {
     fun changeEffect(effectId: Int): String {
-        return "!${Command.CHANGE_EFFECT.num}${"0".repeat(6)}$effectId$"
+        return "!${Command.CHANGE_EFFECT};$effectId$"
     }
 
-    fun changeBrightness(brightnessLevel: Int) = buildString {
-        append("!")
-        append(Command.CHANGE_BRIGHTNESS.num)
-
-        when {
-            brightnessLevel < 10 -> {
-                append("0".repeat(6))
-            }
-
-            brightnessLevel in 10..99 -> {
-                append("0".repeat(5))
-            }
-
-            brightnessLevel > 100 -> {
-                append("0".repeat(4))
-            }
-        }
-
-        append(brightnessLevel)
-        append("$")
+    fun changeBrightness(brightnessLevel: Int) : String {
+        return "!${Command.CHANGE_BRIGHTNESS.num};$brightnessLevel$"
     }
 
     fun changeFireplaceColor(colorHexString: String): String {
-        return "!${Command.CHANGE_FIREPLACE_COLOR.num}$colorHexString$"
+        return "!${Command.CHANGE_FIREPLACE_COLOR.num};$colorHexString$"
     }
 
     fun changeFirefliesAmount(amount: Int): String {

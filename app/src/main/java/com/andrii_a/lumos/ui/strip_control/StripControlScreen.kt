@@ -311,7 +311,7 @@ private class StripControlUiStateProvider : PreviewParameterProvider<StripContro
         StripControlUiState(
             isConnected = true,
             isEffectsMenuVisible = false,
-            selectedEffect = Effect.Fireflies
+            selectedEffect = Effect.Fireplace
         )
     )
 }
