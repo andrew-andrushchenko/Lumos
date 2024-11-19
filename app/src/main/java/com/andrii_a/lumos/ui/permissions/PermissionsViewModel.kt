@@ -8,7 +8,7 @@ class PermissionsViewModel : ViewModel() {
     val visiblePermissionDialogQueue = mutableStateListOf<String>()
 
     fun dismissDialog() {
-        visiblePermissionDialogQueue.removeFirst()
+        visiblePermissionDialogQueue.removeAt(0)
     }
 
     fun onPermissionResult(

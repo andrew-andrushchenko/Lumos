@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andrii_a.lumos.domain.controllers.BluetoothController
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,6 +37,9 @@ class DevicesViewModel @Inject constructor(
         initialValue = _state.value
     )
 
+    private val navigationEventChannel = Channel<DevicesNavigationEvent>()
+    val navigationEventFlow = navigationEventChannel.receiveAsFlow()
+
     init {
         bluetoothController.isBluetoothEnabled.onEach { isEnabled ->
             _state.update { it.copy(isBluetoothEnabled = isEnabled) }
@@ -48,6 +54,12 @@ class DevicesViewModel @Inject constructor(
 
             is DevicesEvent.StopDeviceScan -> {
                 stopScan()
+            }
+
+            is DevicesEvent.SelectDevice -> {
+                viewModelScope.launch {
+                    navigationEventChannel.send(DevicesNavigationEvent.NavigateToStripControl(event.device))
+                }
             }
         }
     }
