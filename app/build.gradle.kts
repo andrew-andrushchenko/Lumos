@@ -1,20 +1,22 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.dagger.hilt.android)
+    //alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.andrii_a.lumos"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.andrii_a.lumos"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -46,10 +48,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.FlowPreview"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+            freeCompilerArgs.add("-opt-in=kotlinx.coroutines.FlowPreview")
+        }
     }
 
     buildFeatures {
@@ -83,16 +87,22 @@ dependencies {
 
     // Navigation + compose
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.hilt.navigation)
-    implementation(libs.androidx.hilt.navigation.compose)
+    //implementation(libs.androidx.hilt.navigation)
+    //implementation(libs.androidx.hilt.navigation.compose)
 
     // Lottie
     implementation(libs.lottie.compose)
 
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.compose.navigation)
+
     // Dagger Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.hilt.compiler)
+    //implementation(libs.hilt.android)
+    //implementation(libs.androidx.hilt.navigation.compose)
+    //kapt(libs.hilt.compiler)
 
     // Android splash screen
     implementation(libs.androidx.core.splashscreen)

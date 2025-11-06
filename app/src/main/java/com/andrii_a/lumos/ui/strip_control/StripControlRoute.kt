@@ -6,12 +6,12 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.andrii_a.lumos.ui.navigation.Screen
+import org.koin.androidx.compose.koinViewModel
 
 fun NavGraphBuilder.stripControlRoute(navController: NavController) {
     composable<Screen.StripControl>(
@@ -28,7 +28,7 @@ fun NavGraphBuilder.stripControlRoute(navController: NavController) {
             )
         }
     ) {
-        val viewModel = hiltViewModel<StripControlViewModel>()
+        val viewModel: StripControlViewModel = koinViewModel()
 
         val state by viewModel.state.collectAsStateWithLifecycle()
 

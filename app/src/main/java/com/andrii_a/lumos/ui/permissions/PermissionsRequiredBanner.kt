@@ -1,8 +1,8 @@
 package com.andrii_a.lumos.ui.permissions
 
 import android.Manifest
-import android.app.Activity
 import android.os.Build
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +41,7 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.andrii_a.lumos.R
 import com.andrii_a.lumos.data.util.hasNecessaryPermissions
+import com.andrii_a.lumos.ui.main.MainActivity
 import com.andrii_a.lumos.ui.permissions.components.AccessFineLocationPermissionTextProvider
 import com.andrii_a.lumos.ui.permissions.components.BluetoothScanPermissionTextProvider
 import com.andrii_a.lumos.ui.permissions.components.PermissionRationaleDialog
@@ -52,7 +52,7 @@ import com.andrii_a.lumos.ui.util.openApplicationSettings
 fun PermissionsRequiredBanner(
     onPermissionsRequested: (Boolean) -> Unit
 ) {
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current as MainActivity
 
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(key1 = lifecycleOwner) {

@@ -3,7 +3,6 @@ package com.andrii_a.lumos.ui.devices
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andrii_a.lumos.domain.controllers.BluetoothController
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,12 +13,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DevicesViewModel @Inject constructor(
-    private val bluetoothController: BluetoothController
-) : ViewModel() {
+class DevicesViewModel(private val bluetoothController: BluetoothController) : ViewModel() {
 
     private val _state = MutableStateFlow(DevicesUiState())
     val state = combine(

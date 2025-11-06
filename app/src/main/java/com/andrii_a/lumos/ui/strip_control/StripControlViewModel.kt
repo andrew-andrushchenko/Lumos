@@ -12,7 +12,6 @@ import com.andrii_a.lumos.domain.enums.BluetoothDeviceType
 import com.andrii_a.lumos.domain.models.BluetoothDeviceDomain
 import com.andrii_a.lumos.ui.navigation.Screen
 import com.andrii_a.lumos.ui.strip_control.effects.Effect
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,12 +21,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 private const val TAG = "StripControlViewModel"
 
-@HiltViewModel
-class StripControlViewModel @Inject constructor(
+class StripControlViewModel(
     private val bluetoothController: BluetoothController,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -93,7 +90,8 @@ class StripControlViewModel @Inject constructor(
             }
 
             is StripControlEvent.ChangeBrightness -> {
-                val changeBrightnessInstruction = CommProtocol.changeBrightness(event.brightness.toInt())
+                val changeBrightnessInstruction =
+                    CommProtocol.changeBrightness(event.brightness.toInt())
                 sendMessage(changeBrightnessInstruction)
 
                 _state.update {
@@ -102,7 +100,8 @@ class StripControlViewModel @Inject constructor(
             }
 
             is StripControlEvent.ChangeFireplaceColor -> {
-                val changeFireplaceColorInstruction = CommProtocol.changeFireplaceColor(event.colorHexString)
+                val changeFireplaceColorInstruction =
+                    CommProtocol.changeFireplaceColor(event.colorHexString)
                 sendMessage(changeFireplaceColorInstruction)
 
                 _state.update {
@@ -111,7 +110,8 @@ class StripControlViewModel @Inject constructor(
             }
 
             is StripControlEvent.ChangeFirefliesAmount -> {
-                val changeFirefliesAmountInstruction = CommProtocol.changeFirefliesAmount(event.amount)
+                val changeFirefliesAmountInstruction =
+                    CommProtocol.changeFirefliesAmount(event.amount)
                 sendMessage(changeFirefliesAmountInstruction)
 
                 _state.update {
